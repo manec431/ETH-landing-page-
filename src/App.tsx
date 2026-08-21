@@ -5,24 +5,15 @@ import {
   PriceChart,
   type RangeDays,
 } from './components/PriceChart'
-import {
-  Projections,
-  type Horizon,
-  type ScenarioKey,
-} from './components/Projections'
 import { FibZones } from './components/FibZones'
+import { TradingSim } from './components/TradingSim'
 import {
   useEthPrice,
   useMarketChart,
   useFibMarketData,
 } from './hooks/useEthData'
+import { useTradingSim } from './hooks/useTradingSim'
 import { buildChartSeries } from './lib/analytics'
-
-const SCENARIO_PCT: Record<Exclude<ScenarioKey, 'custom'>, number> = {
-  bull: 40,
-  base: 15,
-  bear: -20,
-}
 
 export default function App() {
   const { price, error, loading, updatedAt, refresh } = useEthPrice()
@@ -38,18 +29,23 @@ export default function App() {
 
   const [showOls, setShowOls] = useState(false)
   const [showMa, setShowMa] = useState(false)
-  const [scenario, setScenario] = useState<ScenarioKey>('base')
-  const [customPct, setCustomPct] = useState(10)
-  const [horizon, setHorizon] = useState<Horizon>(90)
 
-  const projectionPct =
-    scenario === 'custom' ? customPct : SCENARIO_PCT[scenario]
+  const {
+    state: simState,
+    dailyZones,
+    markEquity,
+    reset: resetSim,
+  } = useTradingSim({
+    spot: price?.usd ?? null,
+    shortPoints,
+    longPoints,
+  })
 
   const series = buildChartSeries(points, {
     showOls,
     showMa,
-    projectionPct,
-    horizonDays: horizon,
+    projectionPct: null,
+    horizonDays: 0,
   })
 
   return (
@@ -81,14 +77,12 @@ export default function App() {
           loading={fibLoading}
           error={fibError}
         />
-        <Projections
+        <TradingSim
+          state={simState}
           spot={price?.usd ?? null}
-          scenario={scenario}
-          customPct={customPct}
-          horizon={horizon}
-          onScenario={setScenario}
-          onCustomPct={setCustomPct}
-          onHorizon={setHorizon}
+          markEquity={markEquity}
+          dailyZones={dailyZones}
+          onReset={resetSim}
         />
       </main>
       <footer className="border-t border-line px-5 py-10 sm:px-8">
@@ -97,9 +91,9 @@ export default function App() {
             Aether
           </p>
           <p className="max-w-xl text-xs leading-relaxed text-mist">
-            Market data from CoinGecko. Charts, Fibonacci levels, and scenarios
-            are transparent analytics — not financial advice, trading signals,
-            or AI price predictions.
+            Market data from CoinGecko. Fibonacci levels and the paper trading
+            bot are transparent simulations — not financial advice or AI price
+            predictions.
           </p>
         </div>
       </footer>

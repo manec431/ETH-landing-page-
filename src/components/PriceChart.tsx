@@ -204,17 +204,6 @@ export function PriceChart({
                     isAnimationActive={false}
                   />
                 )}
-                <Line
-                  type="monotone"
-                  dataKey="projection"
-                  name="Scenario"
-                  stroke="#ff5c7a"
-                  strokeWidth={2}
-                  strokeDasharray="4 4"
-                  dot={false}
-                  connectNulls
-                  isAnimationActive={false}
-                />
               </ComposedChart>
             </ResponsiveContainer>
           )}
