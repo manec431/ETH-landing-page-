@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { analyzeTimeframe, TIMEFRAMES } from '../lib/fibonacci'
+import { analyzeTimeframe, getTimeframes } from '../lib/fibonacci'
 import type { ChartPoint } from '../lib/coingecko'
 import type { TimeframeZones } from '../lib/fibonacci'
 import {
@@ -22,7 +22,7 @@ function getDailyZones(
   longPoints: ChartPoint[],
   spot: number | null,
 ): TimeframeZones | null {
-  const dailyMeta = TIMEFRAMES.find((t) => t.key === 'daily')!
+  const dailyMeta = getTimeframes().find((t) => t.key === 'daily')!
   const source = shortPoints.length > 0 ? shortPoints : longPoints
   if (source.length < 2) return null
   return analyzeTimeframe(source, dailyMeta, spot ?? undefined)

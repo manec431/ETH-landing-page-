@@ -55,9 +55,10 @@ export function FibZones({
           Multi-timeframe zones
         </h2>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-mist">
-          Swing high/low Fibonacci retracements and extensions, with volume
-          tagged by price direction (buy vs sell pressure). These are geometric
-          levels from market structure — not AI forecasts, signals, or advice.
+          Swing high/low Fibonacci retracements and extensions across daily,
+          weekly, monthly, and labeled calendar years ({new Date().getFullYear()}–
+          {new Date().getFullYear() + 5}). Future-year tabs ladder Fib extensions
+          from this year’s structure — geometric illustrations, not forecasts.
         </p>
 
         {error && (
@@ -94,7 +95,11 @@ export function FibZones({
               <div className="flex flex-wrap items-end justify-between gap-3">
                 <div>
                   <p className="font-display text-[10px] tracking-[0.22em] text-mist uppercase">
-                    {selected.label} structure · {selected.lookbackDays}d lookback
+                    {selected.calendarYear != null
+                      ? selected.yearsOut === 0
+                        ? `${selected.calendarYear} YTD · ${selected.lookbackDays}d`
+                        : `${selected.calendarYear} · ${selected.yearsOut}y out (illustrative)`
+                      : `${selected.label} structure · ${selected.lookbackDays}d lookback`}
                   </p>
                   <p className="mt-2 text-sm text-mist">
                     {trendLabel(selected.trend)} · range{' '}
@@ -118,7 +123,9 @@ export function FibZones({
                     {formatUsd(selected.buyZone.high)}
                   </p>
                   <p className="mt-2 text-xs text-mist">
-                    Fib 61.8%–78.6% retracement cluster toward swing low
+                    {selected.yearsOut != null && selected.yearsOut > 0
+                      ? 'Deeper Fib pullback band from current-year swing'
+                      : 'Fib 61.8%–78.6% retracement cluster toward swing low'}
                   </p>
                 </div>
                 <div className="border border-danger/30 bg-danger/5 p-5">
@@ -130,7 +137,9 @@ export function FibZones({
                     {formatUsd(selected.sellZone.high)}
                   </p>
                   <p className="mt-2 text-xs text-mist">
-                    Swing high through 1.272–1.618 extension cluster
+                    {selected.yearsOut != null && selected.yearsOut > 0
+                      ? `Fib extension ladder for ${selected.calendarYear}`
+                      : 'Swing high through 1.272–1.618 extension cluster'}
                   </p>
                 </div>
               </div>
