@@ -45,6 +45,9 @@ export function Hero() {
           <a href="#chart" className="transition hover:text-white">
             Chart
           </a>
+          <a href="#fibonacci" className="transition hover:text-white">
+            Fibonacci
+          </a>
           <a href="#projections" className="transition hover:text-white">
             Projections
           </a>

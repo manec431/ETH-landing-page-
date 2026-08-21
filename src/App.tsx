@@ -10,7 +10,12 @@ import {
   type Horizon,
   type ScenarioKey,
 } from './components/Projections'
-import { useEthPrice, useMarketChart } from './hooks/useEthData'
+import { FibZones } from './components/FibZones'
+import {
+  useEthPrice,
+  useMarketChart,
+  useFibMarketData,
+} from './hooks/useEthData'
 import { buildChartSeries } from './lib/analytics'
 
 const SCENARIO_PCT: Record<Exclude<ScenarioKey, 'custom'>, number> = {
@@ -24,6 +29,12 @@ export default function App() {
   const [days, setDays] = useState<RangeDays>(30)
   const { points, error: chartError, loading: chartLoading } =
     useMarketChart(days)
+  const {
+    shortPoints,
+    longPoints,
+    error: fibError,
+    loading: fibLoading,
+  } = useFibMarketData()
 
   const [showOls, setShowOls] = useState(false)
   const [showMa, setShowMa] = useState(false)
@@ -63,6 +74,13 @@ export default function App() {
           onToggleOls={() => setShowOls((v) => !v)}
           onToggleMa={() => setShowMa((v) => !v)}
         />
+        <FibZones
+          shortPoints={shortPoints}
+          longPoints={longPoints}
+          spot={price?.usd ?? null}
+          loading={fibLoading}
+          error={fibError}
+        />
         <Projections
           spot={price?.usd ?? null}
           scenario={scenario}
@@ -79,9 +97,9 @@ export default function App() {
             Aether
           </p>
           <p className="max-w-xl text-xs leading-relaxed text-mist">
-            Market data from CoinGecko. Charts and scenarios are transparent
-            analytics tools — not financial advice, trading signals, or AI price
-            predictions.
+            Market data from CoinGecko. Charts, Fibonacci levels, and scenarios
+            are transparent analytics — not financial advice, trading signals,
+            or AI price predictions.
           </p>
         </div>
       </footer>

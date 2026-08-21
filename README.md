@@ -10,9 +10,10 @@ Dark crypto landing page for live **$ETH** price, interactive history charts, an
 - Recharts price chart for 7 / 30 / 90 day ranges
 - Optional OLS trend line and 7 / 25-period moving averages
 - Bull (+40%) / Base (+15%) / Bear (−20%) scenarios, custom % slider, and 30d / 90d / 1y horizons
+- Fibonacci retracement / extension map for daily → yearly buy & sell zones, with volume buy/sell pressure
 - Mobile-responsive dark UI
 
-Projections are illustrative what-if math only — not AI predictions or financial advice.
+Projections and Fib zones are illustrative technical analytics only — not AI predictions or financial advice. News/sentiment is not included (CoinGecko free API has no news feed).
 
 ## Local development
 
