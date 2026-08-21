@@ -8,6 +8,7 @@ export type EthPrice = {
 export type ChartPoint = {
   timestamp: number
   price: number
+  volume?: number
 }
 
 const PRICE_URL =
@@ -31,8 +32,17 @@ export async function fetchMarketChart(days: number): Promise<ChartPoint[]> {
   if (!res.ok) {
     throw new Error(`Chart fetch failed (${res.status})`)
   }
-  const data = (await res.json()) as { prices: [number, number][] }
-  return data.prices.map(([timestamp, price]) => ({ timestamp, price }))
+  const data = (await res.json()) as {
+    prices: [number, number][]
+    total_volumes?: [number, number][]
+  }
+
+  const volumes = data.total_volumes ?? []
+  return data.prices.map(([timestamp, price], i) => ({
+    timestamp,
+    price,
+    volume: volumes[i]?.[1],
+  }))
 }
 
 export function formatUsd(value: number, compact = false): string {

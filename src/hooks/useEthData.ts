@@ -74,3 +74,40 @@ export function useMarketChart(days: number) {
 
   return { points, error, loading }
 }
+
+/** Short (1d) + long (365d) series for multi-timeframe Fib / volume analytics. */
+export function useFibMarketData() {
+  const [shortPoints, setShortPoints] = useState<ChartPoint[]>([])
+  const [longPoints, setLongPoints] = useState<ChartPoint[]>([])
+  const [error, setError] = useState<string | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    let cancelled = false
+
+    void (async () => {
+      setLoading(true)
+      setError(null)
+      try {
+        // Sequential to reduce CoinGecko free-tier rate-limit hits
+        const short = await fetchMarketChart(1)
+        if (cancelled) return
+        setShortPoints(short)
+        const long = await fetchMarketChart(365)
+        if (cancelled) return
+        setLongPoints(long)
+      } catch (e) {
+        if (cancelled) return
+        setError(e instanceof Error ? e.message : 'Failed to load Fib data')
+      } finally {
+        if (!cancelled) setLoading(false)
+      }
+    })()
+
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  return { shortPoints, longPoints, error, loading }
+}
