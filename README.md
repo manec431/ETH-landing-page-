@@ -9,7 +9,7 @@ Dark crypto landing page for live **$ETH** price, interactive charts, Fibonacci 
 - Live ETH/USD from CoinGecko (auto-refresh every 45s), plus 24h change, market cap, and volume
 - Recharts price chart for 7 / 30 / 90 day ranges
 - Optional OLS trend line and 7 / 25-period moving averages
-- Fibonacci retracement / extension map for daily → yearly buy & sell zones, with volume buy/sell pressure
+- Fibonacci retracement / extension map for daily → monthly plus labeled years (this year through +5), with volume buy/sell pressure
 - Paper trading simulation: $1,000 start (as of today), daily Fib buy/sell bot, continuous balance, 8:00 PM local P&L ledger (browser localStorage)
 - Mobile-responsive dark UI
 
