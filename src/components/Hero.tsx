@@ -48,8 +48,8 @@ export function Hero() {
           <a href="#fibonacci" className="transition hover:text-white">
             Fibonacci
           </a>
-          <a href="#projections" className="transition hover:text-white">
-            Projections
+          <a href="#simulation" className="transition hover:text-white">
+            Sim
           </a>
         </div>
       </nav>
@@ -62,7 +62,7 @@ export function Hero() {
           Live Ethereum, clear signals
         </h1>
         <p className="animate-rise-delay-2 mt-4 max-w-md text-base leading-relaxed text-mist sm:text-lg">
-          Track $ETH in real time with transparent charts and scenario math —
+          Track $ETH in real time with transparent charts and Fib structure —
           not black-box predictions.
         </p>
         <div className="animate-rise-delay-2 mt-10 flex flex-wrap gap-3">
@@ -73,10 +73,10 @@ export function Hero() {
             View live price
           </a>
           <a
-            href="#projections"
+            href="#simulation"
             className="inline-flex items-center justify-center border border-line bg-panel/40 px-6 py-3 font-display text-xs font-semibold tracking-[0.2em] text-white uppercase backdrop-blur transition hover:border-glow/50"
           >
-            Explore scenarios
+            Paper trading bot
           </a>
         </div>
       </div>

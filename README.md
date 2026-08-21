@@ -1,6 +1,6 @@
 # Aether — Ethereum Price Tracker
 
-Dark crypto landing page for live **$ETH** price, interactive history charts, and transparent scenario projections.
+Dark crypto landing page for live **$ETH** price, interactive charts, Fibonacci zones, and a paper trading bot.
 
 **Live:** https://manec431.github.io/ETH-landing-page-/
 
@@ -9,11 +9,11 @@ Dark crypto landing page for live **$ETH** price, interactive history charts, an
 - Live ETH/USD from CoinGecko (auto-refresh every 45s), plus 24h change, market cap, and volume
 - Recharts price chart for 7 / 30 / 90 day ranges
 - Optional OLS trend line and 7 / 25-period moving averages
-- Bull (+40%) / Base (+15%) / Bear (−20%) scenarios, custom % slider, and 30d / 90d / 1y horizons
 - Fibonacci retracement / extension map for daily → yearly buy & sell zones, with volume buy/sell pressure
+- Paper trading simulation: $1,000 start (as of today), daily Fib buy/sell bot, continuous balance, 8:00 PM local P&L ledger (browser localStorage)
 - Mobile-responsive dark UI
 
-Projections and Fib zones are illustrative technical analytics only — not AI predictions or financial advice. News/sentiment is not included (CoinGecko free API has no news feed).
+Fib zones and the bot are illustrative simulations only — not AI predictions or financial advice. News/sentiment is not included (CoinGecko free API has no news feed).
 
 ## Local development
 
